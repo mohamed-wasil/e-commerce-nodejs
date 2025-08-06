@@ -139,9 +139,14 @@ class ProductService {
         const CACHE_EXPIRY = 60 * 60
         const cacheKey = 'products:all'
 
-        const cashed = await redisClient.get(cacheKey)
-        if (cashed) {
-            return res.status(200).json({ message: "Products fetched successfully", products: JSON.parse(cashed) })
+        const cached = await redisClient.get(cacheKey)
+        if (cached) {
+            const products = typeof cached === 'string' ? JSON.parse(cached) : cached;
+
+            return res.status(200).json({
+                message: "Products fetched successfully",
+                data:products
+            });
         }
 
         const products = await this.productRepo.find({
@@ -156,8 +161,6 @@ class ProductService {
                 select: "name slug logo"
             }]
         })
-        console.log(products);
-        
         if (!products.length) return res.status(400).json({ message: "Not Products Yet" })
 
         // await redisClient.setEx(cacheKey, CACHE_EXPIRY, JSON.stringify(products))

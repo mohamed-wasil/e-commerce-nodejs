@@ -4,13 +4,15 @@ import express, { Application } from 'express'
 import { controlerHandler } from './Utils'
 import { databaseConnection } from './DB/connection'
 import './Cron-Jobs'
-import { connectRedis } from './Configs'
+import { redisClient } from './Configs'
+// import { connectRedis } from './Configs'
 
 const app: Application = express()
 
 databaseConnection()
 controlerHandler(app)
-connectRedis()
+// connectRedis()
+redisClient
 const port: number | string = process.env.PORT || 3000
 
 
