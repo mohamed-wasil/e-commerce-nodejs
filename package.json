@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@types/multer": "^2.0.0",
+    "@upstash/redis": "^1.35.3",
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.7.0",
     "crypto-js": "^4.2.0",

@@ -160,7 +160,9 @@ class ProductService {
         
         if (!products.length) return res.status(400).json({ message: "Not Products Yet" })
 
-        await redisClient.setEx(cacheKey, CACHE_EXPIRY, JSON.stringify(products))
+        // await redisClient.setEx(cacheKey, CACHE_EXPIRY, JSON.stringify(products))
+        await redisClient.set(cacheKey, products, { ex: CACHE_EXPIRY });
+
         res.status(200).json({ message: "Products fetched successfully", products })
     }
 
