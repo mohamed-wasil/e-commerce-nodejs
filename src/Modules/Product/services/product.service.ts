@@ -156,6 +156,8 @@ class ProductService {
                 select: "name slug logo"
             }]
         })
+        console.log(products);
+        
         if (!products.length) return res.status(400).json({ message: "Not Products Yet" })
 
         await redisClient.setEx(cacheKey, CACHE_EXPIRY, JSON.stringify(products))
