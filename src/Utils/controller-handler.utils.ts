@@ -17,7 +17,10 @@ export const controlerHandler = (app: Application) => {
     app.use('/order', controllers.orderController)
 
 
+    // app.all("*", (req, res) => {
+    //     res.status(404).json({ message: "Page Not Found!" });
+    // });
     app.use(errorHandllerGlobalMiddleware)
-    
+
 
 }
